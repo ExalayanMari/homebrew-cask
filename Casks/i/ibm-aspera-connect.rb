@@ -12,7 +12,7 @@ cask "ibm-aspera-connect" do
     url "https://d3gcli72yxqn2z.cloudfront.net/downloads/connect/latest/references.json"
     strategy :json do |json|
       json["entries"]&.map do |entry|
-        next if entry.dig("platform", "os") != "macOS"
+        next unless entry.dig("platform", "os")&.match?(/^mac(?:OS)?$/i)
 
         entry["version"]
       end
